@@ -1,0 +1,11 @@
+com\dbpersis\service\MyDataSource.class
+com\dbpersis\utils\Associations.class
+com\dbpersis\utils\Converter.class
+com\dbpersis\service\PojoDataset.class
+com\dbpersis\utils\Query.class
+com\dbpersis\utils\Association.class
+com\dbpersis\service\MyDataSource$MyConnection.class
+com\dbpersis\service\QueryService.class
+com\dbpersis\utils\Queries.class
+com\dbpersis\starter\DBPersisConfig.class
+com\dbpersis\utils\BeanHandler.class

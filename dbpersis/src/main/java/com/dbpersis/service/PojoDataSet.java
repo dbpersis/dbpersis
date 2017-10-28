@@ -16,7 +16,6 @@ public class PojoDataSet {
 
   public Serializable save(Object object) throws Exception {
     dataSource.save(object);
-
     return null;
   }
 

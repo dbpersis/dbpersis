@@ -8,7 +8,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class DatabaseConfiguration {
-
   @Bean
   public PlatformTransactionManager transactionManager(MyDataSource dataSource) {
     return new MyDataSourceTransactionManager(dataSource);

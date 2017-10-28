@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.service.DemoService;
+
 @RestController
 @RequestMapping(value = "/demo")
 public class DemoController {
@@ -15,9 +17,11 @@ public class DemoController {
   @Autowired
   private DbsersisService exampleService;
 
+  @Autowired
+  private DemoService demoService;
+
   @RequestMapping(value = "input", method = RequestMethod.GET)
   public String input(String word) {
-
     try {
       User sc = new User();
       sc.setId("terry");
@@ -33,4 +37,9 @@ public class DemoController {
     return word;
   }
 
+  @RequestMapping(value = "batch_input", method = RequestMethod.GET)
+  public String batchInput() {
+    demoService.input();
+    return "SUCCESS";
+  }
 }

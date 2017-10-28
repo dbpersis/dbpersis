@@ -14,7 +14,7 @@ public class DemoService {
   private DbsersisService exampleService;
 
   @Transactional
-  public void input() throws Exception {
+  public void input() {
     long d1 = System.currentTimeMillis();
     for (int i = 0; i < 100; i++) {
       User sc = new User();
@@ -24,10 +24,13 @@ public class DemoService {
       sc.setPwd("21232f297a57a5a743894a0e4a801fc3");
       sc.setCreatedate(new Date(System.currentTimeMillis()));
       if (i > 10) {
-        throw new Exception("");
+        throw new RuntimeException("Failed insert user, roll back.");
       }
-      exampleService.save(sc);
+      try {
+        exampleService.save(sc);
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
     }
-
   }
 }

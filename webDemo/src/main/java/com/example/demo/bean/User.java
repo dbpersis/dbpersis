@@ -3,8 +3,12 @@ package com.example.demo.bean;
 import java.sql.Date;
 
 public class User {
-
-  String id;
+  private String id;
+  private String username;
+  private String sex;
+  private int age;
+  private Date createdate;
+  private String pwd;
 
   public String getId() {
     return id;
@@ -54,9 +58,4 @@ public class User {
     this.pwd = pwd;
   }
 
-  String username;
-  String sex;
-  int age;
-  Date createdate;
-  String pwd;
 }

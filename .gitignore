@@ -18,3 +18,5 @@
 /webDemo/demoWeb.iml
 /webDemo/mvnw.cmd
 /.gitattributes
+/webDemo/target/
+/webDemo/target/classes/

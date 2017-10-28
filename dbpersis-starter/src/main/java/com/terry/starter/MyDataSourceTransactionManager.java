@@ -11,8 +11,6 @@ public class MyDataSourceTransactionManager extends DataSourceTransactionManager
 	}
 	
 	public MyDataSourceTransactionManager(MyDataSource dataSource){
-		this();
-		super.setDataSource(dataSource);
-		super.afterPropertiesSet();
+		super(dataSource);
 	}
 }

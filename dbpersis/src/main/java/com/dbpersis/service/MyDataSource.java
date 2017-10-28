@@ -306,7 +306,7 @@ public class MyDataSource implements DataSource {
 	 *
 	 */
 
-	/////////////////////////////////////////////////////////////////////// 使用包装设计模式，增强close方法的自定义类开始
+	
 	class MyConnection implements Connection {
 
 		private Connection conn;

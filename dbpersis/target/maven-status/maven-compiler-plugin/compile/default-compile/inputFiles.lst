@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+C:\Users\terry\Documents\GitHub\dbpersis\dbpersis\src\main\java\com\dbpersis\service\MyDataSource.java
+C:\Users\terry\Documents\GitHub\dbpersis\dbpersis\src\main\java\com\dbpersis\utils\Converter.java
+C:\Users\terry\Documents\GitHub\dbpersis\dbpersis\src\main\java\com\dbpersis\service\PojoDataset.java
+C:\Users\terry\Documents\GitHub\dbpersis\dbpersis\src\main\java\com\dbpersis\service\QueryService.java
+C:\Users\terry\Documents\GitHub\dbpersis\dbpersis\src\main\java\com\dbpersis\utils\Query.java
+C:\Users\terry\Documents\GitHub\dbpersis\dbpersis\src\main\java\com\dbpersis\starter\DBPersisConfig.java
+C:\Users\terry\Documents\GitHub\dbpersis\dbpersis\src\main\java\com\dbpersis\utils\Associations.java
+C:\Users\terry\Documents\GitHub\dbpersis\dbpersis\src\main\java\com\dbpersis\utils\BeanHandler.java
+C:\Users\terry\Documents\GitHub\dbpersis\dbpersis\src\main\java\com\dbpersis\utils\Queries.java
+C:\Users\terry\Documents\GitHub\dbpersis\dbpersis\src\main\java\com\dbpersis\utils\Association.java
+=======
 C:\Users\terry\Documents\workspace\dbpersis\src\main\java\com\dbpersis\service\PojoDataset.java
 C:\Users\terry\Documents\workspace\dbpersis\src\main\java\com\dbpersis\utils\BeanHandler.java
 C:\Users\terry\Documents\workspace\dbpersis\src\main\java\com\dbpersis\utils\Converter.java
@@ -8,3 +20,4 @@ C:\Users\terry\Documents\workspace\dbpersis\src\main\java\com\dbpersis\service\M
 C:\Users\terry\Documents\workspace\dbpersis\src\main\java\com\dbpersis\utils\Association.java
 C:\Users\terry\Documents\workspace\dbpersis\src\main\java\com\dbpersis\utils\Associations.java
 C:\Users\terry\Documents\workspace\dbpersis\src\main\java\com\dbpersis\utils\Queries.java
+>>>>>>> 0f87353f6acdae07abb0d26d7c0a765bc45ed806

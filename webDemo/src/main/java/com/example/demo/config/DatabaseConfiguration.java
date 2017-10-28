@@ -7,10 +7,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import com.dbpersis.service.MyDataSource;
 import com.terry.starter.MyDataSourceTransactionManager;
 
-//@Configuration
+@Configuration
 public class DatabaseConfiguration {
-	//@Bean
-    //public PlatformTransactionManager transactionManager(MyDataSource dataSource) {
-    //    return new MyDataSourceTransactionManager(dataSource);
-    //}
+	@Bean
+    public PlatformTransactionManager transactionManager(MyDataSource dataSource) {
+        return new MyDataSourceTransactionManager(dataSource);
+    }
 }

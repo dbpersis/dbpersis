@@ -40,7 +40,7 @@ import com.dbpersis.utils.BeanHandler;
 public class MyDataSource implements DataSource {
 	public static LinkedList<Connection> connpool = new LinkedList<Connection>();
 
-	public static void register(String driver, String url, String username, String password, String maxActive)
+	public static void register(String driver, String url, String username, String password, int maxActive)
 			throws Exception {
 		if (connpool.size() == 0) {
 			Integer DATABASE_CONNECTION_POOL_SIZE = Integer.valueOf(maxActive);

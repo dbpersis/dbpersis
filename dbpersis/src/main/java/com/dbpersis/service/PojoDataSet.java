@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class PojoDataSet {
-  MyDataSource dataSource;
+  private MyDataSource dataSource;
 
   public PojoDataSet() {
     dataSource = new MyDataSource();

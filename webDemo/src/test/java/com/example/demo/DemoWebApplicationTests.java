@@ -12,5 +12,4 @@ public class DemoWebApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }

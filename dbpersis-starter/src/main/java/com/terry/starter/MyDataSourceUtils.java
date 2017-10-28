@@ -1,63 +1,59 @@
 package com.terry.starter;
 
+import com.dbpersis.service.MyDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import javax.sql.DataSource;
-
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.transaction.TransactionDefinition;
 
-import com.dbpersis.service.MyDataSource;
+public class MyDataSourceUtils extends DataSourceUtils {
 
-public  class MyDataSourceUtils extends DataSourceUtils {
+  public static void releaseConnection(Connection con, MyDataSource dataSource) {
+    // TODO Auto-generated method stub
+    dataSource.release(con);
+  }
 
-	public static void releaseConnection(Connection con, MyDataSource dataSource) {
-		// TODO Auto-generated method stub
-		dataSource.release(con);
-	}
+  public static Integer prepareConnectionForTransaction(Connection con,
+      TransactionDefinition definition) throws SQLException {
+    // TODO Auto-generated method stub
+    if (definition != null && definition.isReadOnly()) {
+      try {
 
-	public static Integer prepareConnectionForTransaction(Connection con, TransactionDefinition definition) throws SQLException{
-		// TODO Auto-generated method stub
-		if (definition != null && definition.isReadOnly()) {
-			try {
-				
-				con.setReadOnly(true);
-			}
-			catch (SQLException ex) {
-				Throwable exToCheck = ex;
-				while (exToCheck != null) {
-					if (exToCheck.getClass().getSimpleName().contains("Timeout")) {
-						// Assume it's a connection timeout that would otherwise get lost: e.g. from JDBC 4.0
-						throw ex;
-					}
-					exToCheck = exToCheck.getCause();
-				}
-			}
-			catch (RuntimeException ex) {
-				Throwable exToCheck = ex;
-				while (exToCheck != null) {
-					if (exToCheck.getClass().getSimpleName().contains("Timeout")) {
-						// Assume it's a connection timeout that would otherwise get lost: e.g. from Hibernate
-						throw ex;
-					}
-					exToCheck = exToCheck.getCause();
-				}
-			}
-		}
+        con.setReadOnly(true);
+      } catch (SQLException ex) {
+        Throwable exToCheck = ex;
+        while (exToCheck != null) {
+          if (exToCheck.getClass().getSimpleName().contains("Timeout")) {
+            // Assume it's a connection timeout that would otherwise get lost: e.g. from JDBC 4.0
+            throw ex;
+          }
+          exToCheck = exToCheck.getCause();
+        }
+      } catch (RuntimeException ex) {
+        Throwable exToCheck = ex;
+        while (exToCheck != null) {
+          if (exToCheck.getClass().getSimpleName().contains("Timeout")) {
+            // Assume it's a connection timeout that would otherwise get lost: e.g. from Hibernate
+            throw ex;
+          }
+          exToCheck = exToCheck.getCause();
+        }
+      }
+    }
 
-		// Apply specific isolation level, if any.
-		Integer previousIsolationLevel = null;
-		if (definition != null && definition.getIsolationLevel() != TransactionDefinition.ISOLATION_DEFAULT) {
-			
-			int currentIsolation = con.getTransactionIsolation();
-			if (currentIsolation != definition.getIsolationLevel()) {
-				previousIsolationLevel = currentIsolation;
-				con.setTransactionIsolation(definition.getIsolationLevel());
-			}
-		}
+    // Apply specific isolation level, if any.
+    Integer previousIsolationLevel = null;
+    if (definition != null
+        && definition.getIsolationLevel() != TransactionDefinition.ISOLATION_DEFAULT) {
 
-		return previousIsolationLevel;
-	}
+      int currentIsolation = con.getTransactionIsolation();
+      if (currentIsolation != definition.getIsolationLevel()) {
+        previousIsolationLevel = currentIsolation;
+        con.setTransactionIsolation(definition.getIsolationLevel());
+      }
+    }
+
+    return previousIsolationLevel;
+  }
 
 }

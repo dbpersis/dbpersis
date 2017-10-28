@@ -1,2 +1,20 @@
-
-*.class
+# Created by .ignore support plugin (hsz.mobi)
+!/.gitattributes
+/dbpersis/dbhelper.iml
+/javaDemo/Demo.iml
+/javaDemo/.project
+/javaDemo/.classpath
+/javaDemo/.settings/
+/dbpersis-starter/dbpersis-spring-boot-starter.iml
+/dbpersis-starter/mvnw
+/dbpersis-starter/mvnw.cmd
+/.idea/
+/dbpersis/.settings/
+/dbpersis/.classpath
+/dbpersis/.project
+/javaDemo/target/
+/webDemo/mvnw
+/webDemo/.mvn/
+/webDemo/demoWeb.iml
+/webDemo/mvnw.cmd
+/.gitattributes

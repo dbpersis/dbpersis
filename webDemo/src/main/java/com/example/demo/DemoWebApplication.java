@@ -20,8 +20,5 @@ public class DemoWebApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoWebApplication.class, args);
 	}
-	@Bean
-    public PlatformTransactionManager transactionManager(MyDataSource dataSource) {
-        return new MyDataSourceTransactionManager(dataSource);
-    }
+	
 }

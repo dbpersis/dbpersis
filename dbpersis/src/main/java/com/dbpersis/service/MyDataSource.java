@@ -1,9 +1,6 @@
 package com.dbpersis.service;
 
-<<<<<<< HEAD
-=======
 import com.dbpersis.utils.BeanHandler;
->>>>>>> d70680c3286d30f5dc4ffb86b7f0ee27d967f612
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.sql.Array;

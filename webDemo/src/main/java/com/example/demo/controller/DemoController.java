@@ -13,21 +13,7 @@ import com.example.demo.service.DemoService;
 @RestController
 @RequestMapping(value = "/demo")
 public class DemoController {
-<<<<<<< HEAD
-	@Autowired
-    private DemoService exampleService;
 
-    @RequestMapping(value="/input",method=RequestMethod.GET)
-    public String input(String word){
-    	
-		try {
-			exampleService.input();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        return word;
-=======
 
   @Autowired
   private DbsersisService exampleService;
@@ -48,14 +34,18 @@ public class DemoController {
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
->>>>>>> d70680c3286d30f5dc4ffb86b7f0ee27d967f612
     }
     return word;
   }
 
   @RequestMapping(value = "batch_input", method = RequestMethod.GET)
   public String batchInput() {
-    demoService.input();
+    try {
+		demoService.input();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     return "SUCCESS";
   }
 }

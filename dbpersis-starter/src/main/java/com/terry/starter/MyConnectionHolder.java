@@ -14,15 +14,7 @@ public class MyConnectionHolder extends ConnectionHolder {
 	public MyConnectionHolder(Connection connection) {
 		super(connection);
 	}
-
-	/**
-	 * Create a new ConnectionHolder for the given JDBC Connection,
-	 * wrapping it with a {@link SimpleConnectionHandle}.
-	 * @param connection the JDBC Connection to hold
-	 * @param transactionActive whether the given Connection is involved
-	 * in an ongoing transaction
-	 * @see SimpleConnectionHandle
-	 */
+	
 	public MyConnectionHolder(Connection connection, boolean transactionActive) {
 		super(connection,transactionActive);
 	}

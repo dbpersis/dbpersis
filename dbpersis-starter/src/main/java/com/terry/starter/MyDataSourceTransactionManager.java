@@ -3,12 +3,15 @@ package com.terry.starter;
 import com.dbpersis.service.MyDataSource;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.datasource.JdbcTransactionObjectSupport;
 import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionSystemException;
+import org.springframework.transaction.support.DefaultTransactionStatus;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 @SuppressWarnings("serial")
@@ -22,7 +25,20 @@ public  class MyDataSourceTransactionManager extends DataSourceTransactionManage
 		super(dataSource);		
 		this.dataSource=dataSource;
 	}
-	
+	@Override
+	protected Object doGetTransaction() {
+		MyDataSourceTransactionObject txObject = new MyDataSourceTransactionObject();
+		txObject.setSavepointAllowed(isNestedTransactionAllowed());
+		MyConnectionHolder conHolder =
+				(MyConnectionHolder) TransactionSynchronizationManager.getResource(this.dataSource);
+		txObject.setConnectionHolder(conHolder, false);
+		return txObject;
+	}
+	@Override
+	protected boolean isExistingTransaction(Object transaction) {
+		MyDataSourceTransactionObject txObject = (MyDataSourceTransactionObject) transaction;
+		return (txObject.getConnectionHolder() != null && txObject.getConnectionHolder().isTransactionActive());
+	}
 	@Override
 	protected void doBegin(Object transaction, TransactionDefinition definition) {
 		MyDataSourceTransactionObject txObject = (MyDataSourceTransactionObject) transaction;
@@ -41,7 +57,7 @@ public  class MyDataSourceTransactionManager extends DataSourceTransactionManage
 			txObject.getConnectionHolder().setSynchronizedWithTransaction(true);
 			con = txObject.getConnectionHolder().getConnection();
 
-			Integer previousIsolationLevel = DataSourceUtils.prepareConnectionForTransaction(con, definition);
+			Integer previousIsolationLevel = MyDataSourceUtils.prepareConnectionForTransaction(con, definition);
 			txObject.setPreviousIsolationLevel(previousIsolationLevel);
 
 			// Switch to manual commit if necessary. This is very expensive in some JDBC drivers,
@@ -74,6 +90,45 @@ public  class MyDataSourceTransactionManager extends DataSourceTransactionManage
 			}
 			throw new CannotCreateTransactionException("Could not open JDBC Connection for transaction", ex);
 		}
+	}
+	@Override
+	protected void doCommit(DefaultTransactionStatus status) {
+		MyDataSourceTransactionObject txObject = (MyDataSourceTransactionObject) status.getTransaction();
+		Connection con = txObject.getConnectionHolder().getConnection();
+		//if (status.isDebug()) {
+		//	logger.debug("Committing JDBC transaction on Connection [" + con + "]");
+		//}
+		try {
+			con.commit();
+		}
+		catch (SQLException ex) {
+			throw new TransactionSystemException("Could not commit JDBC transaction", ex);
+		}
+	}
+
+	@Override
+	protected void doRollback(DefaultTransactionStatus status) {
+		MyDataSourceTransactionObject txObject = (MyDataSourceTransactionObject) status.getTransaction();
+		Connection con = txObject.getConnectionHolder().getConnection();
+		//if (status.isDebug()) {
+		//	logger.debug("Rolling back JDBC transaction on Connection [" + con + "]");
+		//}
+		try {
+			con.rollback();
+		}
+		catch (SQLException ex) {
+			throw new TransactionSystemException("Could not roll back JDBC transaction", ex);
+		}
+	}
+
+	@Override
+	protected void doSetRollbackOnly(DefaultTransactionStatus status) {
+		MyDataSourceTransactionObject txObject = (MyDataSourceTransactionObject) status.getTransaction();
+		if (status.isDebug()) {
+			//logger.debug("Setting JDBC transaction [" + txObject.getConnectionHolder().getConnection() +
+			//		"] rollback-only");
+		}
+		txObject.setRollbackOnly();
 	}
 	@Override
 	protected void doCleanupAfterCompletion(Object transaction) {
@@ -143,7 +198,7 @@ public  class MyDataSourceTransactionManager extends DataSourceTransactionManage
 		}
 		@Override
 		public MyConnectionHolder getConnectionHolder() {
-			return getConnectionHolder();
+			return (MyConnectionHolder) super.getConnectionHolder();
 		}
 	}
 

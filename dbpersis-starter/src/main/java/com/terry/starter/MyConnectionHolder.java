@@ -39,4 +39,9 @@ public class MyConnectionHolder extends ConnectionHolder {
 	public void setConnection(Connection connection) {
 		super.setConnection(connection);
 	}
+	
+	public boolean isTransactionActive() {
+		return this.isTransactionActive();
+	}
+
 }

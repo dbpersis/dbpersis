@@ -23,6 +23,7 @@ public class DbpersisAutoConfigure {
   @ConditionalOnMissingBean
   @ConditionalOnProperty(prefix = "com.terry.starter", value = "enabled", havingValue = "true")
   DbsersisService exampleService() {
+	  
     return new DbsersisService(properties.getDriver(), properties.getUrl(),
         properties.getUsername(), properties.getPassword(), properties.getMaxActive(),
         dataSource());

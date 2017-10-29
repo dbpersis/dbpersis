@@ -17,6 +17,7 @@ public class DBPersisConfig {
   }
 
   public static void ConfigQueryBase(String queryYmlPath, String associationsYmlPath) {
+	System.out.println("查询数据格式初始化！");
     QueryService.init(queryYmlPath, associationsYmlPath);
   }
 }

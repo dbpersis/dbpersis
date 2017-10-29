@@ -16,22 +16,18 @@ import org.springframework.util.ResourceUtils;
 @ConfigurationProperties("com.terry.starter.service")
 public class DbsersisService {
 
-  // Service
   private QueryService queryService;
   private PojoDataSet pojoDataSet;
 
   public DbsersisService(String driver, String url, String username, String password,
       int maxActive, MyDataSource dataSource) {
     Assert.notNull(dataSource, "DataSource can not be null");
-   
     try {
       DBPersisConfig.ConfigDBPool(driver, url, username, password, maxActive);
       DBPersisConfig.ConfigQueryBase(ResourceUtils.getFile("classpath:query").getPath(),
           ResourceUtils.getFile("classpath:association").getPath());
-      ResourceUtils.getFile("classpath:query").getPath();
-      ResourceUtils.getFile("classpath:association").getPath();
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      //e.printStackTrace();
     }
     this.pojoDataSet = new PojoDataSet(dataSource);
     this.queryService = new QueryService(dataSource);

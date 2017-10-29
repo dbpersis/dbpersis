@@ -17,18 +17,18 @@ public class DemoService {
   public void input() {
     for (int i = 0; i < 50; i++) {
       User sc = new User();
-      sc.setId(String.valueOf(i) + "aaa");
+      sc.setId(String.valueOf(i) + "bbbaaa");
       sc.setAge(19);
       sc.setUsername("User");
       sc.setPwd("21232f297a57a5a743894a0e4a801fc3");
       sc.setCreatedate(new Date(System.currentTimeMillis()));
       if (i > 10) {
-        throw new RuntimeException("Failed insert user, roll back.");
+        //throw new RuntimeException("Failed insert user, roll back.");
       }
       try {
         exampleService.save(sc);
       } catch (Exception e) {
-        throw new RuntimeException(e);
+        //throw new RuntimeException(e);
       }
     }
   }

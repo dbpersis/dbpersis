@@ -22,6 +22,7 @@ public  class MyDataSourceTransactionManager extends DataSourceTransactionManage
 	}
 	
 	public MyDataSourceTransactionManager(MyDataSource dataSource){
+<<<<<<< HEAD
 		super(dataSource);		
 		this.dataSource=dataSource;
 	}
@@ -129,6 +130,10 @@ public  class MyDataSourceTransactionManager extends DataSourceTransactionManage
 			//		"] rollback-only");
 		}
 		txObject.setRollbackOnly();
+=======
+		this();
+		super.setDataSource(dataSource);
+>>>>>>> d70680c3286d30f5dc4ffb86b7f0ee27d967f612
 	}
 	@Override
 	protected void doCleanupAfterCompletion(Object transaction) {

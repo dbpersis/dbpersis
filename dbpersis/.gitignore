@@ -1,1 +1,10 @@
+<<<<<<< HEAD
 /target/
+=======
+
+/dbhelper.iml
+/.classpath
+/target/
+/.project
+/.settings/
+>>>>>>> d70680c3286d30f5dc4ffb86b7f0ee27d967f612

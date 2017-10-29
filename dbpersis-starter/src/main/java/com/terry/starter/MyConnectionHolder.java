@@ -3,7 +3,6 @@ package com.terry.starter;
 import java.sql.Connection;
 import org.springframework.jdbc.datasource.ConnectionHandle;
 import org.springframework.jdbc.datasource.ConnectionHolder;
-import org.springframework.jdbc.datasource.SimpleConnectionHandle;
 
 public class MyConnectionHolder extends ConnectionHolder {
 	public MyConnectionHolder(ConnectionHandle connectionHandle) {

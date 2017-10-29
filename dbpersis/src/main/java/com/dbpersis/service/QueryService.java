@@ -24,7 +24,6 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.sql.DataSource;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
@@ -189,7 +188,8 @@ public class QueryService {
     return p;
   }
 
-  public <T> List<T> query(String sqlName, BeanHandler<T> beanListHandler,
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+public <T> List<T> query(String sqlName, BeanHandler<T> beanListHandler,
       Map<String, Object> params, int pageIndex, int pageSize) throws Exception {
     String sql = getQueryStatement(sqlName, params);
     List<T> result = null;
@@ -209,8 +209,7 @@ public class QueryService {
       for (Association ass : ASSOCI_DEFINE) {
         if (ass.getOwnerClass().equals(beanListHandler.getType().getSimpleName())) {
           for (Object ob : result) {
-            Class c = ob.getClass();
-            Field[] fields = c.getDeclaredFields();
+            Field[] fields = ob.getClass().getDeclaredFields();
             for (Field f : fields) {
               f.setAccessible(true);
               if (f.getName().equals(ass.getOwnerProperty())) {

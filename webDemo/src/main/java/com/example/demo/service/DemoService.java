@@ -15,7 +15,6 @@ public class DemoService {
 
   @Transactional
   public void input() {
-    long d1 = System.currentTimeMillis();
     for (int i = 0; i < 50; i++) {
       User sc = new User();
       sc.setId(String.valueOf(i) + "aaa");

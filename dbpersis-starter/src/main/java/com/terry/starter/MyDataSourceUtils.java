@@ -9,7 +9,7 @@ import com.dbpersis.service.MyDataSource;
 
 public abstract class MyDataSourceUtils extends DataSourceUtils {
 	public static void releaseConnection(Connection con, MyDataSource dataSource) {
-		dataSource.release(con);
+		MyDataSource.release(con);
 	}
 
 	public static Integer prepareConnectionForTransaction(Connection con, TransactionDefinition definition)

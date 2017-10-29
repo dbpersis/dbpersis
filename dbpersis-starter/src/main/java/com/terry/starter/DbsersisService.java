@@ -16,13 +16,6 @@ import org.springframework.util.ResourceUtils;
 @ConfigurationProperties("com.terry.starter.service")
 public class DbsersisService {
 
-
-  private String driver;
-  private String url;
-  private String username;
-  private String password;
-  private int maxActive;
-
   // Service
   private QueryService queryService;
   private PojoDataSet pojoDataSet;
@@ -30,11 +23,7 @@ public class DbsersisService {
   public DbsersisService(String driver, String url, String username, String password,
       int maxActive, MyDataSource dataSource) {
     Assert.notNull(dataSource, "DataSource can not be null");
-    this.driver = driver;
-    this.url = url;
-    this.username = username;
-    this.password = password;
-    this.maxActive = maxActive;
+   
     try {
       DBPersisConfig.ConfigDBPool(driver, url, username, password, maxActive);
       DBPersisConfig.ConfigQueryBase(ResourceUtils.getFile("classpath:query").getPath(),
@@ -50,14 +39,14 @@ public class DbsersisService {
 
   public <T> List<T> queryService(String sqlName, BeanHandler<T> beanListHandler,
       Map<String, Object> params, int pageIndex, int pageSize) throws Exception {
-    return new QueryService().query(sqlName, beanListHandler, params, pageIndex, pageSize);
+    return queryService.query(sqlName, beanListHandler, params, pageIndex, pageSize);
   }
 
   public Serializable save(Object object) throws Exception {
-    return new PojoDataSet().save(object);
+    return pojoDataSet.save(object);
   }
 
   public Serializable update(Object object, List<String> param) throws Exception {
-    return new PojoDataSet().update(object, param);
+    return pojoDataSet.update(object, param);
   }
 }

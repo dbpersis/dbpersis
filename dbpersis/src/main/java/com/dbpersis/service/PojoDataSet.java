@@ -6,7 +6,6 @@ package com.dbpersis.service;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.sql.DataSource;
 
 public class PojoDataSet {
   private MyDataSource dataSource;

@@ -24,18 +24,19 @@ public class DbpersisAutoConfigure {
   @ConditionalOnProperty(prefix = "com.terry.starter", value = "enabled", havingValue = "true")
   DbsersisService exampleService() {
     return new DbsersisService(properties.getDriver(), properties.getUrl(),
-        properties.getUsername(), properties.getPassword(), properties.getMaxActive());
+        properties.getUsername(), properties.getPassword(), properties.getMaxActive(),
+        dataSource());
   }
 
   @Bean
   @ConditionalOnMissingBean(PlatformTransactionManager.class)
   @ConditionalOnBean(MyDataSource.class)
   public MyDataSourceTransactionManager transactionManager() {
-    return new MyDataSourceTransactionManager(this.getDataSource());
+    return new MyDataSourceTransactionManager(dataSource());
   }
 
   @Bean
-  public MyDataSource getDataSource() {
+  public MyDataSource dataSource() {
     return new MyDataSource();
   }
 }

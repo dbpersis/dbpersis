@@ -24,6 +24,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.sql.DataSource;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.VelocityContext;
@@ -49,11 +50,15 @@ public class QueryService {
     dataSource = new MyDataSource();
   }
 
+  public QueryService(MyDataSource dataSource) {
+    if (dataSource == null) {
+      throw new RuntimeException("DataSource can not be null");
+    }
+    this.dataSource = dataSource;
+  }
+
   public static void init(String queryYmlPath, String associationsYmlPath) {
     try {
-      /*
-       * 加载查询语句
-			 */
       Constructor constructor = new Constructor(Queries.class);
       TypeDescription typeDescription = new TypeDescription(Query.class);
       typeDescription.putListPropertyType("queries", Query.class);
@@ -62,7 +67,6 @@ public class QueryService {
       List<File> listFiles = new ArrayList<File>();
       File queryYml = new File(queryYmlPath);
       getAllYmalFile(queryYml, listFiles);
-
       for (File f : listFiles) {
         InputStream input = new FileInputStream(f);
         Queries queries = (Queries) yaml.load(input);
@@ -121,7 +125,6 @@ public class QueryService {
       QUERY_DEFINE.get(sqlName).getStatement();
     } catch (NullPointerException ex) {
       return null;
-
     }
     String sqlStatement = QUERY_DEFINE.get(sqlName).getStatement();
     if (StringUtils.isBlank(sqlStatement)) {
@@ -191,7 +194,7 @@ public class QueryService {
     String sql = getQueryStatement(sqlName, params);
     List<T> result = null;
     if (StringUtils.isNotBlank(sql)) {
-      result = new MyDataSource().query(sql, beanListHandler);
+      result = this.dataSource.query(sql, beanListHandler);
       if (getQueryResultType(sqlName).equals("Map")) {
         return result;
       }
@@ -199,7 +202,7 @@ public class QueryService {
         return result;
       }
     } else {
-      result = new MyDataSource().query(sqlName, beanListHandler);
+      result = this.dataSource.query(sqlName, beanListHandler);
     }
 
     if (result.size() > 0) {

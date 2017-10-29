@@ -6,12 +6,20 @@ package com.dbpersis.service;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.sql.DataSource;
 
 public class PojoDataSet {
   private MyDataSource dataSource;
 
   public PojoDataSet() {
     dataSource = new MyDataSource();
+  }
+
+  public PojoDataSet(MyDataSource dataSource) {
+    if (dataSource == null) {
+      throw new RuntimeException("DataSource can not be null");
+    }
+    this.dataSource = dataSource;
   }
 
   public Serializable save(Object object) throws Exception {

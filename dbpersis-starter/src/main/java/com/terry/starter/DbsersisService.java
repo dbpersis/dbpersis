@@ -1,5 +1,6 @@
 package com.terry.starter;
 
+import com.dbpersis.service.MyDataSource;
 import com.dbpersis.service.PojoDataSet;
 import com.dbpersis.service.QueryService;
 import com.dbpersis.starter.DBPersisConfig;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.Assert;
 import org.springframework.util.ResourceUtils;
 
 @ConfigurationProperties("com.terry.starter.service")
@@ -20,14 +22,18 @@ public class DbsersisService {
   private String password;
   private int maxActive;
 
+  // Service
+  private QueryService queryService;
+  private PojoDataSet pojoDataSet;
+
   public DbsersisService(String driver, String url, String username, String password,
-      int maxActive) {
+      int maxActive, MyDataSource dataSource) {
+    Assert.notNull(dataSource, "DataSource can not be null");
     this.driver = driver;
     this.url = url;
     this.username = username;
     this.password = password;
     this.maxActive = maxActive;
-
     try {
       DBPersisConfig.ConfigDBPool(driver, url, username, password, maxActive);
       DBPersisConfig.ConfigQueryBase(ResourceUtils.getFile("classpath:query").getPath(),
@@ -35,10 +41,10 @@ public class DbsersisService {
       ResourceUtils.getFile("classpath:query").getPath();
       ResourceUtils.getFile("classpath:association").getPath();
     } catch (FileNotFoundException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
-
+    this.pojoDataSet = new PojoDataSet(dataSource);
+    this.queryService = new QueryService(dataSource);
   }
 
   public <T> List<T> queryService(String sqlName, BeanHandler<T> beanListHandler,

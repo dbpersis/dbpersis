@@ -9,16 +9,13 @@ import org.springframework.transaction.TransactionDefinition;
 public class MyDataSourceUtils extends DataSourceUtils {
 
   public static void releaseConnection(Connection con, MyDataSource dataSource) {
-    // TODO Auto-generated method stub
     dataSource.release(con);
   }
 
   public static Integer prepareConnectionForTransaction(Connection con,
       TransactionDefinition definition) throws SQLException {
-    // TODO Auto-generated method stub
     if (definition != null && definition.isReadOnly()) {
       try {
-
         con.setReadOnly(true);
       } catch (SQLException ex) {
         Throwable exToCheck = ex;
@@ -52,8 +49,6 @@ public class MyDataSourceUtils extends DataSourceUtils {
         con.setTransactionIsolation(definition.getIsolationLevel());
       }
     }
-
     return previousIsolationLevel;
   }
-
 }

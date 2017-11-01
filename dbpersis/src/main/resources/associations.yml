@@ -1,6 +1,0 @@
-  associations:
-    - ownerClass: SchoolClass
-      ownerProperty: students
-      ownerParam: id
-      targetClass: Students
-      targetProperty: classid

@@ -1,8 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.bean.User;
-import com.terry.starter.DbsersisService;
-import java.sql.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

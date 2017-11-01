@@ -50,4 +50,18 @@
         and classid = :classid
         #end
         "
+    - name: findOrganization
+      # 查询出车辆信息
+      resultType: Organization
+      statement: 
+        "
+        select * 
+        from 
+        Organization
+        where 
+        1 = 1
+        #if($id)
+        and id = :id
+        #end
+        "
        

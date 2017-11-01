@@ -4,3 +4,15 @@
       ownerParam: id
       targetClass: Students
       targetProperty: classid
+    
+    - ownerClass: Organization
+      ownerProperty: parent
+      ownerParam: pid
+      targetClass: Organization
+      targetProperty: id
+      
+    - ownerClass: User
+      ownerProperty: organization
+      ownerParam: oid
+      targetClass: Organization
+      targetProperty: id

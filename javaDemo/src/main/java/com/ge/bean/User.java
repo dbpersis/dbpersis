@@ -5,8 +5,25 @@ import java.sql.Date;
 public class User {
 
   String id;
+  String oid;
+  Organization organization;
+  public Organization getOrganization() {
+	return organization;
+}
 
-  public String getId() {
+public void setOrganization(Organization organization) {
+	this.organization = organization;
+}
+
+public String getOid() {
+	return oid;
+}
+
+public void setOid(String oid) {
+	this.oid = oid;
+}
+
+public String getId() {
     return id;
   }
 
